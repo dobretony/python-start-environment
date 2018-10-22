@@ -5,6 +5,7 @@ test:
 	py.test tests
 
 run:
-	python setup.py start
+	cd app; echo ""; \
+	scrapy crawl example
 
 .PHONY: init test

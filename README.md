@@ -1,5 +1,8 @@
 # Skeleton for Python Environments
 A starting environment for Python3 using virtualenv in order to work.
+This project uses scrapy in order to create a base for web crawlers.
+
+It follows this [tutorial](https://medium.com/python-pandemonium/develop-your-first-web-crawler-in-python-scrapy-6b2ee4baf954).
 
 ## How to install
 
