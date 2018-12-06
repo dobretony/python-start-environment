@@ -8,8 +8,8 @@ First off, you should start with [installing python3 on your machine](https://re
 In order to start the project:
 
 ```bash
-python3 -m venv env
-source env/bin/activate
+virtualenv -p python3 venv #creates environment venv inside working directory
+source venv/bin/activate #activates venv environment
 ```
 
 To deactivate the project:

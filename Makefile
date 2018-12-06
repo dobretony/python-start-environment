@@ -5,6 +5,6 @@ test:
 	py.test tests
 
 run:
-	python setup.py start
+	python3 setup.py start
 
 .PHONY: init test
