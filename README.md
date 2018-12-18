@@ -1,9 +1,14 @@
 # Skeleton for Python Environments
 A starting environment for Python3 using virtualenv in order to work.
+This is a web server created using Python3 Flask.
+
+It has the basics utilities for sqlite3, authorization and packages required
+to instantly start off creating a web app.
 
 ## How to install
 
-First off, you should start with [installing python3 on your machine](https://realpython.com/installing-python/). With Python3 installed the package virtualenv should already be available.
+First off, you should start with [installing python3 on your machine](https://realpython.com/installing-python/).
+With Python3 installed the package virtualenv should already be available.
 
 In order to start the project:
 

@@ -5,6 +5,8 @@ test:
 	py.test tests
 
 run:
-	python3 setup.py start
+	export FLASK_APP=app
+	export FLASK_ENV=development
+	flask run
 
 .PHONY: init test
