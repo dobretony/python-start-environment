@@ -6,6 +6,7 @@ from flask import (
 from werkzeug.security import check_password_hash, generate_password_hash
 
 from app.db import get_db
+from .forms import LoginForm
 
 bp = Blueprint('auth', __name__, url_prefix='/auth')
 
@@ -36,11 +37,12 @@ def register():
 
         flash(error)
 
-    return render_template('auth/register.html')
+    return render_template('auth/register.html.j2')
 
 @bp.route('/login', methods=('GET', 'POST'))
 def login():
-    if request.method == 'POST':
+    login_form=LoginForm()
+    if login_form.validate_on_submit():
         username = request.form['username']
         password = request.form['password']
         db = get_db()
@@ -61,7 +63,7 @@ def login():
 
         flash(error)
 
-    return render_template('auth/login.html')
+    return render_template('auth/login.html.j2', form=login_form)
 
 @bp.before_app_request
 def load_logged_in_user():

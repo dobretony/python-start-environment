@@ -1,7 +1,21 @@
-<!doctype html>
-<title>{% block title %}{% endblock %} - Flaskr</title>
-<link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
-<nav>
+{% extends 'bootstrap/base.html' %}
+{% import "bootstrap/wtf.html" as wtf %}
+
+{% block header %}
+  <h1>
+    {% block title %}
+      <title>{% block page_title%}{% endblock %} - {{app_name}}</title>
+    {% endblock %}
+  </h1>
+  {# Import whatever bootstrap needs. #}
+  {{ super() }}
+  {# If any subpage has a special header, it should overwrite this. #}
+  {% block page_header %}
+  {% endblock %}
+{% endblock %}
+
+{% block navbar %}
+<div class="navbar navbar-fixed-top">
   <h1>Flaskr</h1>
   <ul>
     {# g is automatically available in templates.
@@ -16,13 +30,15 @@
       <li><a href="{{ url_for('auth.login') }}">Log In</a>
     {% endif %}
   </ul>
-</nav>
+</div>
+{% endblock %}
+
 <section class="content">
-  <header>
-    {% block header %}{% endblock %}
-  </header>
   {% for message in get_flashed_messages() %}
     <div class="flash">{{ message }}</div>
   {% endfor %}
-  {% block content %}{% endblock %}
+  {% block content %}
+    {% block page_content %}
+    {% endblock %}
+  {% endblock %}
 </section>
