@@ -6,6 +6,6 @@ def load_views():
         from app.views.authentication.auth import login
         from app.views.authentication.auth import logout
         from app.views.authentication.auth import register
-        print("Loaded Views")
+        print("Loaded authentication views in auth blueprint")
 
 load_views()

@@ -55,4 +55,8 @@ def create_app(test_config=None):
     from app.views.authentication import auth_blueprint
     app.register_blueprint(auth_blueprint)
 
+    #register the blueprint for user profiles
+    from app.views.settings import settings_blueprint
+    app.register_blueprint(settings_blueprint)
+
     return app

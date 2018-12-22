@@ -23,7 +23,7 @@ def register():
         db.session.commit()
         flash('Congratulations, you are now a registered user!')
         return redirect(url_for('auth.login'))
-    return render_template('auth/register.html.j2', form=form)
+    return render_template('authentication/register.html.j2', form=form)
 
 @auth_blueprint.route('/login', methods=('GET', 'POST'))
 def login():
@@ -42,7 +42,7 @@ def login():
             next_page = url_for('index')
         return redirect(next_page   )
 
-    return render_template('auth/login.html.j2', form=login_form)
+    return render_template('authentication/login.html.j2', form=login_form)
 
 @auth_blueprint.route('/logout')
 def logout():
