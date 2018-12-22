@@ -1,5 +1,5 @@
 {% extends 'base.html.j2' %}
-{% import "bootstrap/wtf.html" as wtf %}
+{% set active_page = "auth.login" %}
 
 {% block page_title %}Log In{% endblock %}
 
@@ -23,4 +23,5 @@
     <p>{{ form.remember_me() }} {{ form.remember_me.label }}</p>
     <button type="submit" class="btn btn-success">Submit</button>
 </form>
+<p>New User? <a href="{{ url_for('auth.register') }}">Click to Register!</a></p>
 {% endblock %}

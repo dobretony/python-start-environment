@@ -46,8 +46,10 @@ def create_app(test_config=None):
     def hello():
         return 'Hello, World!'
 
-    from app.views.index import index
+    from app.views.index import index, about
     app.add_url_rule('/', 'index', index)
+    app.add_url_rule('/index', 'index', index)
+    app.add_url_rule('/about', 'about', about)
 
     # register the blueprint for authentication
     from app.views.authentication import auth_blueprint
