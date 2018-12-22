@@ -46,8 +46,8 @@ tests/test_advanced.py # advanced tests script
 
 ## Important links
 
-[Flask Megatutorial](https://blog.miguelgrinberg.com/post/the-flask-mega-tutorial-part-i-hello-world)
-[Flask Bootstrap How-to](https://pythonhosted.org/Flask-Bootstrap/index.html)
+*[Flask Megatutorial](https://blog.miguelgrinberg.com/post/the-flask-mega-tutorial-part-i-hello-world)
+*[Flask Bootstrap How-to](https://pythonhosted.org/Flask-Bootstrap/index.html)
 
 ## Timeline:
 
@@ -61,3 +61,6 @@ tests/test_advanced.py # advanced tests script
 1. Created package 'authorization' that contains the auth.py and forms.py controller and model
 1. Added python-wtf and a WTForm for Login
 1. Added server side validation for LoginForm in the login method
+1. Added flask-sqlalchemy, an ORM for any SQL database
+1. Added flask-migrate, a tool for migrating data bases
+1. Created migration folder and migration script 
