@@ -2,13 +2,12 @@
 {% import "bootstrap/wtf.html" as wtf %}
 
 {% block header %}
-  <h1>
     {% block title %}
-      <title>{% block page_title%}{% endblock %} - {{app_name}}</title>
+      <title>
+        {% block page_title%}
+        {% endblock %}
+      </title>
     {% endblock %}
-  </h1>
-  {# Import whatever bootstrap needs. #}
-  {{ super() }}
   {# If any subpage has a special header, it should overwrite this. #}
   {% block page_header %}
   {% endblock %}
@@ -33,7 +32,7 @@
 </div>
 {% endblock %}
 
-<section class="content">
+<div class="container">
   {% for message in get_flashed_messages() %}
     <div class="flash">{{ message }}</div>
   {% endfor %}
@@ -41,4 +40,4 @@
     {% block page_content %}
     {% endblock %}
   {% endblock %}
-</section>
+</div>

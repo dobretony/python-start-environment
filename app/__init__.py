@@ -2,21 +2,16 @@ import os
 
 from flask import Flask
 from flask_bootstrap import Bootstrap
-from app.config import Config
+from flask_migrate import Migrate
 
 def create_app(test_config=None):
     # create and configure the app
     app = Flask(__name__, instance_relative_config=True)
-    # activate Bootstrap
-    Bootstrap(app)
 
+    from app.config import Config
     app.config.from_object(Config)
-    app.config['DATABASE'] = os.path.join(app.instance_path, 'python_start.sqlite')
 
-    if test_config is None:
-        # load the instance config, if it exists, when not testing
-        app.config.from_pyfile('config/config.py', silent=True)
-    else:
+    if test_config:
         # load the test config if passed in
         app.config.from_mapping(test_config)
 
@@ -26,14 +21,19 @@ def create_app(test_config=None):
     except OSError:
         pass
 
+    # Database Models are defined in the "models" subfolder
+    # we have to import the db from there
+    from app.models import db
+    db.init_app(app)
+    migrate = Migrate(app, db)
+
+    # activate Bootstrap
+    Bootstrap(app)
+
     # a simple page that says hello
     @app.route('/hello')
     def hello():
         return 'Hello, World!'
-
-    # import database
-    from . import db
-    db.init_app(app)
 
     # register the blueprint for authentication
     from app.authorization import auth
