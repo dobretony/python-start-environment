@@ -3,10 +3,11 @@ import os
 from flask import Flask
 from flask_bootstrap import Bootstrap
 from flask_migrate import Migrate
+from flask_login import LoginManager
 
 def create_app(test_config=None):
     # create and configure the app
-    app = Flask(__name__, instance_relative_config=True)
+    app = Flask(__name__, instance_relative_config=True, static_folder='./static')
 
     from app.config import Config
     app.config.from_object(Config)
@@ -30,13 +31,26 @@ def create_app(test_config=None):
     # activate Bootstrap
     Bootstrap(app)
 
+    #activate LoginManager
+    login = LoginManager(app)
+    login.login_view = 'auth.login'
+
+    #set up a user loader function
+    from app.models.user import User
+    @login.user_loader
+    def load_user(id):
+        return User.query.get(int(id))
+
     # a simple page that says hello
-    @app.route('/hello')
+    @app.route('/ping')
     def hello():
         return 'Hello, World!'
 
+    from app.views.index import index
+    app.add_url_rule('/', 'index', index)
+
     # register the blueprint for authentication
-    from app.authorization import auth
-    app.register_blueprint(auth.bp)
+    from app.views.authentication import auth_blueprint
+    app.register_blueprint(auth_blueprint)
 
     return app

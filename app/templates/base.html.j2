@@ -1,43 +1,68 @@
-{% extends 'bootstrap/base.html' %}
-{% import "bootstrap/wtf.html" as wtf %}
 
-{% block header %}
-    {% block title %}
+<header>
       <title>
         {% block page_title%}
         {% endblock %}
       </title>
-    {% endblock %}
   {# If any subpage has a special header, it should overwrite this. #}
-  {% block page_header %}
+  {% block header %}
   {% endblock %}
-{% endblock %}
+  <link rel="stylesheet" media="screen" href="{{ url_for('static', filename='bootstrap/css/bootstrap.min.css') }}">
+  <link rel="stylesheet" href="{{ url_for('static', filename='bootstrap/css/bootstrap-theme.min.css') }}">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+</header>
 
-{% block navbar %}
-<div class="navbar navbar-fixed-top">
-  <h1>Flaskr</h1>
-  <ul>
-    {# g is automatically available in templates.
-       Based on if g.user is set (from load_logged_in_user),
-       either the username and a log out link are displayed,
-       otherwise links to register and log in are displayed. #}
-    {% if g.user %}
-      <li><span>{{ g.user['username'] }}</span>
-      <li><a href="{{ url_for('auth.logout') }}">Log Out</a>
-    {% else %}
-      <li><a href="{{ url_for('auth.register') }}">Register</a>
-      <li><a href="{{ url_for('auth.login') }}">Log In</a>
-    {% endif %}
-  </ul>
-</div>
-{% endblock %}
-
+<body>
+  <div class="container">
+    <nav class="navbar navbar-default">
+          <div class="container-fluid">
+            <div class="navbar-header">
+              <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+              </button>
+              <a class="navbar-brand" href="#">Project name</a>
+            </div>
+            <div id="navbar" class="navbar-collapse collapse">
+              <ul class="nav navbar-nav">
+                <li class="active"><a href="#">Home</a></li>
+                <li><a href="#">About</a></li>
+                <li><a href="#">Contact</a></li>
+                <li class="dropdown">
+                  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Dropdown <span class="caret"></span></a>
+                  <ul class="dropdown-menu">
+                    <li><a href="#">Action</a></li>
+                    <li><a href="#">Another action</a></li>
+                    <li><a href="#">Something else here</a></li>
+                    <li role="separator" class="divider"></li>
+                    <li class="dropdown-header">Nav header</li>
+                    <li><a href="#">Separated link</a></li>
+                    <li><a href="#">One more separated link</a></li>
+                  </ul>
+                </li>
+              </ul>
+              <ul class="nav navbar-nav navbar-right">
+                {% if current_user.is_anonymous %}
+                <li class="active"><a href="{{ url_for('auth.login') }}">Login <span class="sr-only">(current)</span></a></li>
+                <li><a href="{{ url_for('auth.register') }}">Register</a></li>
+                {% else %}
+                <li class="active"><a href="{{ url_for('auth.logout') }}">Fixed top</a></li>
+                {% endif %}
+              </ul>
+            </div><!--/.nav-collapse -->
+          </div><!--/.container-fluid -->
+        </nav>
 <div class="container">
   {% for message in get_flashed_messages() %}
     <div class="flash">{{ message }}</div>
   {% endfor %}
-  {% block content %}
-    {% block page_content %}
+    {% block content %}
     {% endblock %}
-  {% endblock %}
 </div>
+</div>
+</body>
+
+<script src="//cdnjs.cloudflare.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+<script src="{{ url_for('static', filename='bootstrap/js/bootstrap.js') }}"></script>

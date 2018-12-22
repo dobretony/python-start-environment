@@ -8,6 +8,7 @@ db = SQLAlchemy()
 # Helper function to load all the models
 def load_models():
     from app.models.user import User
+    from app.models.comment import Comment
     print("Loaded Models")
 
 # Run helper function on load in order for it to be picked up by flask-migrate
