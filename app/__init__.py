@@ -3,7 +3,8 @@ import os
 from flask import Flask
 from flask_bootstrap import Bootstrap
 from flask_migrate import Migrate
-from flask_login import LoginManager
+from flask_login import LoginManager, current_user
+from datetime import datetime
 
 def create_app(test_config=None):
     # create and configure the app
@@ -40,6 +41,13 @@ def create_app(test_config=None):
     @login.user_loader
     def load_user(id):
         return User.query.get(int(id))
+
+    # set up before requests
+    @app.before_request
+    def before_request():
+        if current_user.is_authenticated:
+            current_user.last_seen = datetime.utcnow()
+            db.session.commit()
 
     # a simple page that says hello
     @app.route('/ping')
