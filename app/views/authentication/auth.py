@@ -5,7 +5,7 @@ from werkzeug.security import check_password_hash, generate_password_hash
 from werkzeug.urls import url_parse
 
 from . import auth_blueprint
-from app.db import get_db
+from app.models import db
 from .forms import LoginForm, RegistrationForm
 from flask_login import current_user, login_user, logout_user
 from app.models.user import User
