@@ -29,6 +29,13 @@ When first activating the virtual environment, run:
 make init
 ```
 
+## How to test
+
+In root directory, run:
+```
+python -m unittest discover -v
+```
+
 ## Project structure
 
 
@@ -63,4 +70,4 @@ tests/test_advanced.py # advanced tests script
 1. Added server side validation for LoginForm in the login method
 1. Added flask-sqlalchemy, an ORM for any SQL database
 1. Added flask-migrate, a tool for migrating data bases
-1. Created migration folder and migration script 
+1. Created migration folder and migration script

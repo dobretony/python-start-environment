@@ -5,6 +5,11 @@ from flask_sqlalchemy import SQLAlchemy
 # to initialize the database and integrate it into the Flask app
 db = SQLAlchemy()
 
+followers = db.Table('followers',
+    db.Column('follower_id', db.Integer, db.ForeignKey('user.id')),
+    db.Column('followed_id', db.Integer, db.ForeignKey('user.id'))
+)
+
 # Helper function to load all the models
 def load_models():
     from app.models.user import User
