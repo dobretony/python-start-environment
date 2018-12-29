@@ -5,6 +5,9 @@ from hashlib import md5
 from datetime import datetime
 from . import followers
 from .comment import Comment
+from time import time
+import jwt
+from app import new_flask_app
 
 # Class to define a User in SQLALchemy
 class User(UserMixin, db.Model):
@@ -55,6 +58,20 @@ class User(UserMixin, db.Model):
                 followers.c.follower_id == self.id)
         own = Comment.query.filter_by(user_id=self.id)
         return followed.union(own).order_by(Comment.timestamp.desc())
+
+    def get_reset_password_token(self, expires_in=600):
+        return jwt.encode(
+            {'reset_password': self.id, 'exp': time() + expires_in},
+            new_flask_app.config['SECRET_KEY'], algorithm='HS256').decode('utf-8')
+
+    @staticmethod
+    def verify_reset_password_token(token):
+        try:
+            id = jwt.decode(token, new_flask_app.config['SECRET_KEY'],
+                            algorithms=['HS256'])['reset_password']
+        except:
+            return
+        return User.query.get(id)
 
     def __repr__(self):
         return '<User {}>'.format(self.username)

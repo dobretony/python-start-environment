@@ -5,6 +5,7 @@ from flask_bootstrap import Bootstrap
 from flask_migrate import Migrate
 from flask_login import LoginManager, current_user
 from datetime import datetime
+from flask_mail import Mail
 import logging
 from logging.handlers import RotatingFileHandler
 import os
@@ -33,6 +34,8 @@ try:
     os.makedirs(new_flask_app.instance_path)
 except OSError:
     pass
+
+mail = Mail(new_flask_app)
 
 # Database Models are defined in the "models" subfolder
 # we have to import the db from there

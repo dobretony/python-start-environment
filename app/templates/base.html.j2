@@ -18,12 +18,11 @@
   {% include '_navbar.html.j2' %}
 </div>
 <div class="container">
-  {% for message in get_flashed_messages() %}
-    <div class="flash">{{ message }}</div>
-  {% endfor %}
+    {% for message in get_flashed_messages() %}
+      <div class="alert alert-info">{{ message }}</div>
+    {% endfor %}
     {% block content %}
     {% endblock %}
-</div>
 </div>
 </body>
 

@@ -8,6 +8,8 @@ from app.models import db
 @new_flask_app.route('/index', methods=['GET', 'POST'])
 @new_flask_app.route('/', methods=['GET', 'POST'])
 def index():
+    if current_user.is_anonymous:
+        return render_template("index.html.j2", title='Home Page')
     form = CommentForm()
     if form.validate_on_submit():
         post = Comment(body=form.post.data, author=current_user)
@@ -15,16 +17,6 @@ def index():
         db.session.commit()
         flash('Your comment is now live!')
         return redirect(url_for('index'))
-    posts = [
-        {
-            'author': {'username': 'John'},
-            'body': 'Beautiful day in Portland!'
-        },
-        {
-            'author': {'username': 'Susan'},
-            'body': 'The Avengers movie was so cool!'
-        }
-    ]
     page = request.args.get('page', 1, type=int)
     posts = current_user.followed_posts().paginate(
         page, new_flask_app.config['POSTS_PER_PAGE'], False)
