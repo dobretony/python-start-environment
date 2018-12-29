@@ -1,0 +1,46 @@
+{% extends "base.html.j2" %}
+{% set active_page= "explore" %}
+
+{% block page_title %}
+  {{ project_name }} - Explore
+{% endblock %}
+
+{% block content %}
+    {% if current_user.is_anonymous %}
+      <h1> Hey, stranger!</h1>
+      <h3> If you want to submit, please <a href="{{ url_for('auth.login') }}">login</a> or <a href="{{ url_for('auth.register') }}">register</a>.</h3>
+    {% else %}
+      <h1>Hi, {{ current_user.username }}!</h1>
+      {% if form %}
+      <form action="" method="post">
+          {{ form.hidden_tag() }}
+          <p>
+              {{ form.post.label }}<br>
+              {{ form.post(cols=32, rows=4) }}<br>
+              {% for error in form.post.errors %}
+              <span style="color: red;">[{{ error }}]</span>
+              {% endfor %}
+          </p>
+          <p>{{ form.submit() }}</p>
+      </form>
+      {% endif %} {# end form #}
+    {% endif %} {# end current_user.is_anonymous #}
+    {% for post in posts %}
+    <table>
+        <tr valign="top">
+            <td>
+                <a href="{{ url_for('settings.user', username=post.author.username) }}">
+                    {{ post.author.username }}
+                </a>
+                says:<br>{{ post.body }}
+            </td>
+        </tr>
+    </table>
+    {% endfor %}
+    {% if prev_url %}
+    <a href="{{ prev_url }}">Newer posts</a>
+    {% endif %}
+    {% if next_url %}
+    <a href="{{ next_url }}">Older posts</a>
+    {% endif %}
+{% endblock %}

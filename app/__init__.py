@@ -63,12 +63,12 @@ def hello():
     return 'Hello, World!'
 
 # set the error handlers
-from app.views.errors import *
+import app.views.errors
 
-from app.views.index import index, about
-new_flask_app.add_url_rule('/', 'index', index)
-new_flask_app.add_url_rule('/index', 'index', index)
-new_flask_app.add_url_rule('/about', 'about', about)
+import app.views.index
+#new_flask_app.add_url_rule('/', 'index', index)
+#new_flask_app.add_url_rule('/index', 'index', index)
+#new_flask_app.add_url_rule('/about', 'about', about)
 
 # register the blueprint for authentication
 from app.views.authentication import auth_blueprint
