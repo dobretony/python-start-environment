@@ -1,12 +1,13 @@
 from wtforms import StringField, TextAreaField, SubmitField
 from wtforms.validators import DataRequired, Length, ValidationError
 from flask_wtf import FlaskForm
+from flask_babel import lazy_gettext as _l
 from app.models.user import User
 
 class EditProfileForm(FlaskForm):
-    username = StringField('Username', validators=[DataRequired()])
-    about_me = TextAreaField('About me', validators=[Length(min=0, max=140)])
-    submit = SubmitField('Submit')
+    username = StringField(_l('Username'), validators=[DataRequired()])
+    about_me = TextAreaField(_l('About me'), validators=[Length(min=0, max=140)])
+    submit = SubmitField(_l('Submit'))
 
     def __init__(self, original_username, *args, **kwargs):
         super(EditProfileForm, self).__init__(*args, **kwargs)

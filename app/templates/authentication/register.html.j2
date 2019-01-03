@@ -1,10 +1,10 @@
 {% extends 'base.html.j2' %}
 {% set active_page = "auth.register" %}
 
-{% block page_title %}Register{% endblock %}
+{% block page_title %}{{ _('Register') }}{% endblock %}
 
 {% block content %}
-    <h1>Register</h1>
+    <h1>{{ _('Register') }}</h1>
     <form action="" method="post">
         {{ form.hidden_tag() }}
         <p>

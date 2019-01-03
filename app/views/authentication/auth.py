@@ -3,11 +3,12 @@ from flask import (
 )
 from werkzeug.security import check_password_hash, generate_password_hash
 from werkzeug.urls import url_parse
+from flask_login import current_user, login_user, logout_user
+from flask_babel import _
 
 from . import auth_blueprint
 from app.models import db
 from app.views.authentication.forms import LoginForm, RegistrationForm, ResetPasswordRequestForm, ResetPasswordForm
-from flask_login import current_user, login_user, logout_user
 from app.models.user import User
 from app.email import send_password_reset_email
 
@@ -22,7 +23,7 @@ def register():
         user.set_password(form.password.data)
         db.session.add(user)
         db.session.commit()
-        flash('Congratulations, you are now a registered user!')
+        flash(_('Congratulations, you are now a registered user!'))
         return redirect(url_for('auth.login'))
     return render_template('authentication/register.html.j2', form=form)
 
@@ -35,7 +36,7 @@ def login():
     if login_form.validate_on_submit():
         user = User.query.filter_by(username=login_form.username.data).first()
         if user is None or not user.check_password(login_form.password.data):
-            flash('Invalid username or password')
+            flash(_('Invalid username or password'))
             return redirect(url_for('auth.login'))
         login_user(user, remember=login_form.remember_me.data)
         next_page = request.args.get('next')
@@ -59,7 +60,7 @@ def reset_password_request():
         user = User.query.filter_by(email=form.email.data).first()
         if user:
             send_password_reset_email(user)
-        flash('Check your email for the instructions to reset your password')
+        flash(_('Check your email for the instructions to reset your password'))
         return redirect(url_for('auth.login'))
     return render_template('reset_password_request.html.j2',
                            title='Reset Password', form=form)
@@ -75,6 +76,6 @@ def reset_password(token):
     if form.validate_on_submit():
         user.set_password(form.password.data)
         db.session.commit()
-        flash('Your password has been reset.')
+        flash(_('Your password has been reset.'))
         return redirect(url_for('auth.login'))
     return render_template('authentication/reset_password.html.j2', form=form)

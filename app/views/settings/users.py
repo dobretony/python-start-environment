@@ -1,5 +1,6 @@
 from . import settings_blueprint
 from flask_login import login_required, current_user
+from flask_babel import _
 from app.models.user import User
 from app.models.comment import Comment
 from .users_form import EditProfileForm
@@ -31,7 +32,7 @@ def edit_user():
         current_user.username = form.username.data
         current_user.about_me = form.about_me.data
         db.session.commit()
-        flash('Your changes have been saved.')
+        flash(_('Your changes have been saved.'))
         return redirect(url_for('settings.edit_user'))
     elif request.method == 'GET':
         form.username.data = current_user.username

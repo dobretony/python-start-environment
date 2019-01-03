@@ -1,7 +1,7 @@
 {% extends 'base.html.j2' %}
 {% set active_page = "auth.login" %}
 
-{% block page_title %}Log In{% endblock %}
+{% block page_title %}{{_('Log In')}}{% endblock %}
 
 {% block content %}
 <form action="" method="post" novalidate>
@@ -23,8 +23,8 @@
     <p>{{ form.remember_me() }} {{ form.remember_me.label }}</p>
     <button type="submit" class="btn btn-success">Submit</button>
 </form>
-<p>New User? <a href="{{ url_for('auth.register') }}">Click to Register!</a></p>
+<p>{{_('New User?')}} <a href="{{ url_for('auth.register') }}"> {{ _('Click to Register!')}}</a></p>
 <p>
-  <a href="{{ url_for('auth.reset_password_request') }}"> Forgot password? </a>
+  <a href="{{ url_for('auth.reset_password_request') }}"> {{ _('Forgot password?') }} </a>
 </p>
 {% endblock %}

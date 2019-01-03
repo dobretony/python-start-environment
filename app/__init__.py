@@ -1,9 +1,14 @@
 import os
 
 from flask import Flask
+from flask import g
 from flask_bootstrap import Bootstrap
 from flask_migrate import Migrate
 from flask_login import LoginManager, current_user
+from flask_moment import Moment
+from flask_babel import Babel, _
+from flask_babel import lazy_gettext as _l
+from flask_babel import get_locale
 from datetime import datetime
 from flask_mail import Mail
 import logging
@@ -46,6 +51,19 @@ migrate = Migrate(new_flask_app, db)
 #activate LoginManager
 login = LoginManager(new_flask_app)
 login.login_view = 'auth.login'
+login.login_message = _l('Please log in to access this page.')
+
+#activate flask moment for datetime
+moment = Moment(new_flask_app)
+
+#activate flask babel to I18N
+babel = Babel(new_flask_app)
+
+#activate localeselector
+@babel.localeselector
+def get_locale():
+    #return request.accept_languages.best_match(app.config['LANGUAGES'])
+    return 'es'
 
 #set up a user loader function
 from app.models.user import User
@@ -59,6 +77,7 @@ def before_request():
     if current_user.is_authenticated:
         current_user.last_seen = datetime.utcnow()
         db.session.commit()
+    g.locale = str(get_locale())
 
 # a simple page that says hello
 @new_flask_app.route('/ping')

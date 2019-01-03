@@ -1,5 +1,6 @@
 from flask import render_template, request, flash, redirect, url_for
 from flask_login import login_required, current_user
+from flask_babel import _
 from app import new_flask_app
 from app.views.forms import CommentForm
 from app.models.comment import Comment
@@ -15,7 +16,7 @@ def index():
         post = Comment(body=form.post.data, author=current_user)
         db.session.add(post)
         db.session.commit()
-        flash('Your comment is now live!')
+        flash(_('Your comment is now live!'))
         return redirect(url_for('index'))
     page = request.args.get('page', 1, type=int)
     posts = current_user.followed_posts().paginate(
