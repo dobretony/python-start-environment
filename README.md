@@ -27,6 +27,10 @@ white skin tone.
 
 If any white skin tone has been detected, it will mark it down into a CSV file with the data mentioned above.
 
+## Next steps
+
+Implement skin tone detection algorithm: https://arxiv.org/ftp/arxiv/papers/1708/1708.02694.pdf
+
 ## How to install
 
 First off, you should start with [installing python3 on your machine](https://realpython.com/installing-python/). With Python3 installed the package virtualenv should already be available.
